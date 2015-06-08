@@ -1,10 +1,10 @@
 class MainController < ApplicationController
   def index
-    @flash = Flash.find(params[:num])
-  end
-  def data
-    @flash = Flash.new(params.require(:num).permit(:integer))
-    @flash.save
-    redirect_to @flash
+    if params[:id].nil?
+      new_id = rand(0..Flash.count)
+      redirect_to id: new_id
+    else
+      @flash = Flash.find(params[:id])
+    end
   end
 end
