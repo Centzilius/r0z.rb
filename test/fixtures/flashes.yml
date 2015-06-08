@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  id: 
+  audiosrc: MyText
+  imagesrc: MyText
+  tags: MyText
+  uploader: MyText
+  original_name: MyText
+
+two:
+  id: 
+  audiosrc: MyText
+  imagesrc: MyText
+  tags: MyText
+  uploader: MyText
+  original_name: MyText
