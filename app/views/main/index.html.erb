@@ -2,15 +2,125 @@
 <html>
 <head>
   <title><%= @flash.id %># !RABKA UHALLA</title>
+
+  <%= favicon_link_tag 'favicon.ico' %>
+
+  <meta name="author" content="Rob1NN" />
+  <meta name="description" content="the funniest flashes on the interwebz!" />
+  <!-- @rob1nn: the golden keywords of laifu, especially the last one -->
+  <meta name="keywords" content="swf, flash, adobe, funny, loop, random, z0r" />
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <script type="text/javascript">
+  	height=window.innerHeight-160;
+  	width=window.innerWidth-140;
+  	if((height*<%= flashratio %>) < width){
+  	  width=height*<%= flashratio %>;
+  	}else{
+  	  height=width/<%= flashratio %>;
+  	};
+  	var flashvars = {};
+  	var params = {};
+  	var attributes = {};
+
+  	//FIXME
+  	swfobject.embedSWF("flash/<%= @flash.id %>.swf", "swf", "100%", "80%", "9", "expressInstall.swf", flashvars, params, attributes);
+  </script>
 </head>
 <body>
-<%= @flash.id %>
-<%= @flash.imagesrc %>
-<%= @flash.audiosrc %>
-<%= @flash.tags %>
-<%= @flash.uploader %>
+	<div>
+		<div id="flash">
+			<div id="swf"></div>
+		</div>
+
+		<div id="buttons"><!--TODO: HREF-->
+			<a onclick="soon('tm')" href="">&#171; Previous</a> 
+			| <a href="/">Random</a> | 
+			<a onclick="soon('tm')" href="">Next &raquo;</a>
+		</div>
+		<div id="table">
+			<table id="sourcebox">
+				<tbody>
+					<tr>
+						<td>Video</td><td>Audio</td><td>Filename</td><td>Uploader</td><td>Tags</td>
+					</tr>
+					<tr>
+						<td><%= @flash.imagesrc %></td>
+						<td><%= @flash.audiosrc %></td>
+						<td><%= @flash.original_name %></td>
+						<td><%= @flash.uploader %></td>
+						<td><%= @flash.tags %></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div id="disqus">
+			<div id="disqus_button">
+				<a href="#disqus_thread" data-disqus-identifier="<%= @flash.id %>" id="disqus_button">
+					No Comments
+				</a>
+				<br />
+				<span class="updateThis">
+					(click to expand dong)
+				</span>
+			</div>
+			<div id="disqus_thread"></div>
+			<noscript>
+				Please enable JavaScript to view the
+				<a href="http://disqus.com/?ref_noscript">
+					comments.
+				</a>
+			</noscript>
+			<script>
+				var disqus_shortname = 'fusroga';
+				var disqus_identifier = '<%= @flash.id %>';
+				var disqus_url = 'http://r0z.biz/<%= @flash.id %>';
+				// Load comment counter
+				$(document).ready(function() {
+					$.ajaxSetup({ cache: true });
+					$.getScript('http://fusroga.disqus.com/count.js');
+					$.ajaxSetup({ cache: false });
+				});
+				// Hide disqus placeholder
+				$('#disqus_thread').hide();
+				// Load disqus script only once
+				$('#disqus_button').one('click', function() {
+					$.ajaxSetup({ cache: true });
+					$.getScript('http://fusroga.disqus.com/embed.js');
+					$.ajaxSetup({ cache: false });
+				});
+				// Display placeholder with a slide effect + change text of span 'updateThis'
+				$('#disqus_button').click(function() {
+					if($('.updateThis').text() == '(click to expand dong)')
+						$('.updateThis').text('(click to close)');
+					else
+						$('.updateThis').text('(click to expand dong)');
+					$('#disqus_thread').slideToggle(3000, function() {
+					});
+				return false;
+				});
+			</script>
+		</div>
+	</div>
+	<div id="quicklinks">
+		Follow us on 
+		<a href="//twitter.com/fusroga">Twitter</a> | 
+		<a href="//www.facebook.com/fusroga">Facebook</a> | 
+		<a href="//plus.google.com/104078984544111325800/posts">Google+</a>
+		<br />
+		Quick Links:
+		<a onclick="soon('tm')">Info</a> | 
+		<a onclick="soon('tm')">Upload</a> | 
+		<a onclick="soon('tm')">Source Index</a> | 
+		<a href="skype:?chat&amp;blob=9WOGcGxyrhgC4uxUhVa9VNEifOA3M0lrZrL8gbHJptvlllaR9Zk7imrRMknUt39MKyoVFuynfAz3MunAx8N35XUmqa0xRZ4a6b6QaXuMqgIiwSz333fFbQmqQPPhAb27VokrBZD47gSsiL8iYl16TNbqwXArvLpIKvy3utRuSq9qPYhnNCf95oA5zHC6IpbwjMyK6l-ZAAn-ly2b0PAOpPTMQI36UBzImGo">Skype</a>
+		<br />
+		Functions:<!--TODO: Add profiles and JS Functions-->
+		<a onclick="soon('tm')">Mute Flash</a> | 
+		<a onclick="makeFullScreen()">Fullscreen</a> | 
+		<a onclick="soon('tm')">Profile</a>
+	</div>
+	<!-- Copyright © 2014, 2015 Rob1NN & Contributors -->
 </body>
 </html>
