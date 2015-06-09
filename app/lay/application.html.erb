@@ -1,16 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= @flash.id %># !RABKA UHALLA</title>
+  <title>R0z</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-<%= @flash.id %>
-<%= @flash.imagesrc %>
-<%= @flash.audiosrc %>
-<%= @flash.tags %>
-<%= @flash.uploader %>
+
+<%= yield %>
+
 </body>
 </html>
