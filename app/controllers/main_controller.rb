@@ -1,7 +1,7 @@
 class MainController < ApplicationController
   def index
   	id_not_zero = true
-  	if params[:id] == 0
+  	if params[:id] == "0"
   		id_not_zero = false
   	end
   	id = params[:id].to_i
