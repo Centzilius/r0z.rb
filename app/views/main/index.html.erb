@@ -26,11 +26,14 @@
   	var attributes = {};
 
   	//FIXME
-  	swfobject.embedSWF("flash/<%= @flash.id %>.swf", "swf", "100%", "80%", "9", "expressInstall.swf", flashvars, params, attributes);
+  	function embed(){
+  		swfobject.embedSWF("flash/<%= @flash.id %>.swf", "swf", "100%", "80%", "9", "expressInstall.swf", flashvars, params, attributes);
+  	}
+  	embed();
   </script>
 </head>
-<body>
-	<div>
+<body data-no-turbolink>
+	<div id="main">
 		<div id="flash">
 			<div id="swf"></div>
 		</div>

@@ -1,0 +1,64 @@
+body{
+	background-color: black;
+	color: white;
+}
+main{
+	height: 100%;
+}
+td{
+	vertical-align: middle;
+	text-align: center;
+}
+section{
+	padding-bottom: 10px;
+	width: 100%;
+}
+a:link, a:visited, a:focus, a:active{
+	text-decoration: none;
+	font-weight: bold;
+	color: white;
+}
+a:hover{
+	text-decoration: none;
+	font-weight: none;
+	color: grey;
+	text-shadow: 0 0 5px black;
+}
+#quicklinks{
+	font-size: 12px;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	max-width: 45%;
+	background-color: black;
+	padding: 5px;
+}
+#buttons{
+	text-align: center;
+}
+#sourcebox{
+	border: 1px solid white;
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+	border-collapse: collapse;
+}
+#flash{
+	position: relative;
+	width: 100%;
+	min-height: 200px;
+	max-height: 90%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 80%;
+}
+#disqus_button{
+    width: 100%;
+    margin: 0px auto;
+    text-align: center;
+}
+#disqus_thread{
+	width: 80%;
+	margin: 0px auto;
+}

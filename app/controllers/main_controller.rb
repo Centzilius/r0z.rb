@@ -20,9 +20,10 @@ class MainController < ApplicationController
     redirect_to(:id => new_id)
   end
   def flashratio
-  	data = FastImage.size("http://sandpapr.pw/flash/"+@flash.id.to_s+".swf")
-  	byebug
-  	ratio = data[0]/data[1]
+  	#data = FastImage.size("http://sandpapr.pw/flash/"+@flash.id.to_s+".swf")
+  	#byebug
+  	#ratio = data[0]/data[1]
+  	ratio = 1
   	return ratio
   end
   helper_method :flashratio
