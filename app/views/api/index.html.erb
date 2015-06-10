@@ -1,0 +1,35 @@
+<%
+
+func = params[:code]
+arg1 = params[:arg1]
+arg2 = params[:arg2]
+
+case func
+when "max" # Return last ID
+  concat Flash.count-1
+when "source" # Source-Index
+  case arg1
+  when "audio" # Return audio source
+    unless arg2.empty?
+      concat Flash.find(arg2).audiosrc
+    end
+  when "video" # Return video source
+    unless arg2.empty?
+      concat Flash.find(arg2).imagesrc
+    end
+  when "uploader" # Return uploader
+    unless arg2.empty?
+      concat Flash.find(arg2).uploader
+    end
+  when "filename" # Return original filename
+    unless arg2.empty?
+      concat Flash.find(arg2).original_name
+    end
+  when "tags" # Return tags
+    unless arg2.empty?
+      concat Flash.find(arg2).tags
+    end
+  end
+end
+
+%>

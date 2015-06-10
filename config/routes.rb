@@ -3,6 +3,11 @@ Rails.application.routes.draw do
 
   root 'main#index'
   
+  get 'api' => 'api#info'
+  get 'api/:code' => 'api#index'
+  get 'api/:code/:arg1' => 'api#index'
+  get 'api/:code/:arg1/:arg2' => 'api#index'
+
   get ':id' => 'main#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
