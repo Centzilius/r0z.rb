@@ -1,4 +1,4 @@
-# r0z [![Build Status](https://travis-ci.org/Rob1NN/r0z.rb.svg)](https://travis-ci.org/Rob1NN/roz.rb) [![Stories in Ready](https://badge.waffle.io/Rob1NN/r0z.rb.png?label=ready&title=Ready)](https://waffle.io/Rob1NN/r0z.rb)
+# r0z [![Build Status](https://travis-ci.org/Rob1NN/r0z.rb.svg)](https://travis-ci.org/Rob1NN/r0z.rb) [![Stories in Ready](https://badge.waffle.io/Rob1NN/r0z.rb.png?label=ready&title=Ready)](https://waffle.io/Rob1NN/r0z.rb)
 
 This is the source code for r0z.biz
 
