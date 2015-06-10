@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   get 'api/:code/:arg1/:arg2' => 'api#index'
 
   get 'info' => 'info#index'
+  get 'source' => 'source#index'
+  get 'upload' => 'upload#index'
 
   get ':id' => 'main#index'
 
