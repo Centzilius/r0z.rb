@@ -16,6 +16,18 @@ module R0z
     else
       FileUtils.cp("#{Rails.root}/config/config.yaml.example", "#{Rails.root}/config/config.yaml")
     end
+
+    config.assets.precompile += %w( api.js )
+    config.assets.precompile += %w( info.js )
+    config.assets.precompile += %w( main.js )
+    config.assets.precompile += %w( source.js )
+    config.assets.precompile += %w( upload.js )
+
+    config.assets.precompile += %w( api.css )
+    config.assets.precompile += %w( info.css )
+    config.assets.precompile += %w( main.css )
+    config.assets.precompile += %w( source.css )
+    config.assets.precompile += %w( upload.css )
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.

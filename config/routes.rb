@@ -2,11 +2,13 @@ Rails.application.routes.draw do
   get 'main/index'
 
   root 'main#index'
-  
+
   get 'api' => 'api#info'
   get 'api/:code' => 'api#index'
   get 'api/:code/:arg1' => 'api#index'
   get 'api/:code/:arg1/:arg2' => 'api#index'
+
+  get 'info' => 'info#index'
 
   get ':id' => 'main#index'
 

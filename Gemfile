@@ -44,3 +44,4 @@ group :development, :test do
 end
 
 gem 'fastimage'
+gem 'piwik_analytics'
