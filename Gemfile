@@ -44,4 +44,3 @@ group :development, :test do
 end
 
 gem 'fastimage'
-gem 'rails_config'

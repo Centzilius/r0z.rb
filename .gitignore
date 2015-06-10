@@ -35,4 +35,7 @@ bower.json
 .powenv
 
 # Ignore flash folder
-/public/flash
+public/flash
+
+# Ignore Config
+config/config.yaml

@@ -12,11 +12,25 @@ class MainController < ApplicationController
     elsif id < 0
       redirect and return
     else
-      @flash = Flash.find(params[:id])
+      @flash = Flash.find(id)
     end
+    check(id)
+  end
+  def check(id)
+  	@current = id
+  	if id == 0
+  	  @prev = Flash.count-1
+  	else
+  	  @prev = id-1
+  	end
+  	if id == Flash.count-1
+  	  @next = 0
+  	else
+  	  @next = id+1
+  	end
   end
   def redirect
-    new_id = rand(0..Flash.count)
+    new_id = rand(0..(Flash.count-1))
     redirect_to(:id => new_id)
   end
   def flashratio

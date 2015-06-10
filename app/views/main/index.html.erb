@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title><%= @flash.id %># !RABKA UHALLA</title>
+  <title><%= @current %># <%= R0z.config.title %></title>
 
   <%= favicon_link_tag 'favicon.ico' %>
 
@@ -27,7 +27,7 @@
 
   	//FIXME
   	function embed(){
-  		swfobject.embedSWF("flash/<%= @flash.id %>.swf", "swf", "100%", "80%", "9", "expressInstall.swf", flashvars, params, attributes);
+  		swfobject.embedSWF("flash/<%= @current %>.swf", "swf", "100%", "80%", "9", "expressInstall.swf", flashvars, params, attributes);
   	}
   	embed();
   </script>
@@ -39,9 +39,9 @@
 		</div>
 
 		<div id="buttons"><!--TODO: HREF-->
-			<a onclick="soon('tm')" href="">&#171; Previous</a> 
+			<a href="<%= @prev %>">&#171; Previous</a> 
 			| <a href="/">Random</a> | 
-			<a onclick="soon('tm')" href="">Next &raquo;</a>
+			<a href="<%= @next %>">Next &raquo;</a>
 		</div>
 		<div id="table">
 			<table id="sourcebox">
@@ -79,7 +79,7 @@
 			<script>
 				var disqus_shortname = 'fusroga';
 				var disqus_identifier = '<%= @flash.id %>';
-				var disqus_url = 'http://r0z.biz/<%= @flash.id %>';
+				var disqus_url = 'http://r0z.biz/<%= @current %>';
 				// Load comment counter
 				$(document).ready(function() {
 					$.ajaxSetup({ cache: true });
