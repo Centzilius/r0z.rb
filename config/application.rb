@@ -11,7 +11,11 @@ module R0z
     Application.config
   end
   class Application < Rails::Application
-    YAML.load_file("#{Rails.root}/config/config.yaml").each { |k,v| config.send "#{k}=", v }
+    if File.exist?("#{Rails.root}/config/config.yaml")
+      YAML.load_file("#{Rails.root}/config/config.yaml").each { |k,v| config.send "#{k}=", v }
+    else
+      FileUtils.cp("#{Rails.root}/config/config.yaml.example", "#{Rails.root}/config/config.yaml")
+    end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
