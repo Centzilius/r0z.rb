@@ -45,3 +45,4 @@ end
 
 gem 'fastimage'
 gem 'piwik_analytics'
+gem 'coveralls', require: false
