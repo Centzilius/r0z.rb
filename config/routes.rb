@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  get 'main/index'
+  get 'kyubey/index'
 
-  root 'main#index'
+  root 'kyubey#index'
 
   get 'api' => 'api#info'
   get 'api/:code' => 'api#index'
@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get 'source' => 'source#index'
   get 'upload' => 'upload#index'
 
-  get ':id' => 'main#index'
+  get ':id' => 'kyubey#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

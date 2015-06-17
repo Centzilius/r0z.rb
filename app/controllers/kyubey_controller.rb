@@ -1,0 +1,2 @@
+class KyubeyController < ApplicationController
+end
