@@ -103,29 +103,10 @@
 		var swfwidth = 0
 		var swfSource = 'flash/' + flashID + '.swf'; 
 		var restHeight = 170;
+    var randomID = Math.floor((Math.random() * maxID));
 
 		// When Site has been loaded
 		$(document).ready(function () {
-
-			/*
-	    // Check if ID is 0 or lower
-	    if (flashID <= 0){
-	    	// Get Max ID
-	    	document.getElementById('pre').href = maxID;
-	    } else {
-	    	document.getElementById('pre').href = flashID-1;
-	    }
-	    	// Make random number from 0 to maxID
-    	document.getElementById('ran').href = Math.floor((Math.random() * maxID));
-	    	// Check if ID is >= maxID
-    	if (flashID >= maxID){
-    		// Get Max ID
-    		document.getElementById('nex').href = 0;
-    	} else {
-    		document.getElementById('nex').href = flashID+1;
-    	}
-	    */
-
 	    replaceElements(flashID);
       prepareComments();
     });
@@ -192,29 +173,37 @@
       // @rob1nn: ??
 		}
 
-		function goToAnotherFlash(destination){
-			if (destination == -1){
-				if (flashID <= 0){
-					window.history.pushState('page', 'flash', '/'+ maxID);
-					flashID = maxID
-				} else {
-					flashID = flashID - 1;
-					window.history.pushState('page', 'flash', '/'+ flashID);
-				}
-			}
-			if (destination == 0){
-				flashID = Math.floor((Math.random() * maxID));
-				window.history.pushState('page', 'flash', '/'+ flashID);
-			}
-			if (destination == 1){
-				if (flashID >= maxID){
-					window.history.pushState('page', 'flash', '/'+ 0);
-					flashID = 0
-				} else {
-					flashID = flashID + 1;
-					window.history.pushState('page', 'flash', '/'+ flashID);
-				}
-			}
+		function goToAnotherFlash(destination, pre){
+      if (pre == true){
+        if (destination == -1){
+          if (flashID <= 0){
+            window.history.pushState('page', 'flash', '/'+ maxID);
+            flashID = maxID
+          } else {
+            flashID = flashID - 1;
+            window.history.pushState('page', 'flash', '/'+ flashID);
+          }
+        } else if (destination == 0){
+          flashID = randomID;
+          window.history.pushState('page', 'flash', '/'+ flashID);
+        } else if (destination == 1){
+          if (flashID >= maxID){
+            window.history.pushState('page', 'flash', '/'+ 0);
+            flashID = 0
+          } else {
+            flashID = flashID + 1;
+            window.history.pushState('page', 'flash', '/'+ flashID);
+          }
+        }
+      } else {
+        flashID = destination;
+        if(isNaN(flashID))
+          flashID = randomID;
+        else if(flashID < 0)
+          flashID = randomID;
+        flashID = parseInt(flashID, 10);
+        window.history.pushState("page", "flash", "/"+flashID)
+      }
 			replaceElements(flashID);
       DISQUS.reset({
         reload: true,
@@ -269,6 +258,50 @@
       return false;
     }
 
+    function p(){
+      goToAnotherFlash(-1, true);
+    }
+    function o(){
+      var idBox = prompt("Enter ID:");
+      goToAnotherFlash(idBox, false);
+    }
+    function r(){
+      goToAnotherFlash(0, true);
+    }
+    function n(){
+      goToAnotherFlash(1, true);
+    }
+
+    function Mute(){
+      // @rob1nn: todo!!!
+    }
+
+    var map = {77: false, 40: false, 37: false, 38: false, 39: false};
+    $(document).keydown(function(e) {
+      if (e.keyCode in map) {
+        map[e.keyCode] = true;
+        if (map[77]) {
+          Mute();
+        }
+        if (map[37]) {
+          p();
+        }
+        if (map[38]) {
+          o();
+        }
+        if (map[40]) {
+          r();
+        }
+        if (map[39]) {
+          n();
+        }
+      }
+    }).keyup(function(e) {
+      if (e.keyCode in map) {
+        map[e.keyCode] = false;
+      }
+    });
+
 	</script>
 </head>
 <body>
@@ -290,14 +323,13 @@
 	<center>
 		<!-- Navigation -->
 		<div id="navigation">
-			<a id="pre" href="javascript:void(0)" onclick="goToAnotherFlash(-1)" >&#171; Previous</a> |
-			<a id="ran" href="javascript:void(0)" onclick="goToAnotherFlash(0)" >Random</a> |
-			<a id="nex" href="javascript:void(0)" onclick="goToAnotherFlash(1)" >Next &#187;</a>
+			<a id="pre" onclick="goToAnotherFlash(-1, true)" >&#171; Previous</a> |
+			<a id="ran" onclick="goToAnotherFlash(0, true)" >Random</a> |
+			<a id="nex" onclick="goToAnotherFlash(1, true)" >Next &#187;</a>
 		</div>
 
 		<!-- Source Table -->
 		<div id="sourceTable">
-
 			<table>
 				<tr>
 					<td>Video</td>
