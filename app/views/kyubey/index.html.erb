@@ -257,21 +257,18 @@
 				$('#disqus_button').text('Hide Comments');
 			else
 				$('#disqus_button').text('Show Comments');
-		$('#disqus_thread').slideToggle(2000, function() {/*callback of slider*/});
-		return false;
-	}
-
-	function p(){
-		goToAnotherFlash(-1, true);
-	}
-	function n(){
-		goToAnotherFlash(1, true);
-	}
-
-	function Mute(){
+			$('#disqus_thread').slideToggle(2000, function() {/*callback of slider*/});
+			return false;
+		}
+		function p(){
+			goToAnotherFlash(-1, true);
+		}
+		function n(){
+			goToAnotherFlash(1, true);
+		}
+		function Mute(){
 			// @rob1nn: todo!!!
 		}
-
 		var map = {77: false, 40: false, 37: false, 38: false, 39: false};
 		$(document).keydown(function(e) {
 			if (e.keyCode in map) {
@@ -287,11 +284,9 @@
 				}
 			}
 		}).keyup(function(e) {
-			if (e.keyCode in map) {
+			if (e.keyCode in map)
 				map[e.keyCode] = false;
-			}
 		});
-
 	</script>
 </head>
 <body>
