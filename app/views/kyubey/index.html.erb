@@ -5,114 +5,114 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<style type="text/css">
 		body {
-		 background-color: #000000;
-		 margin: 0px;
-		 padding: 0px;
-		 color: #FFFFFF;
-		 height: 100%;
-		 width: 100%;
-	 }
-	 table {
-		 display:table;
-		 margin-right:auto;
-		 margin-left:auto;
-		 width:100%;
-	 }
-	 td {
-		 vertical-align: middle;
-		 text-align: center;
-	 }
-	 th {
-		 display: table-cell;
-		 vertical-align: inherit;
-	 }
-	 a{
-		 text-decoration: none;
-		 cursor: pointer;
-		 cursor: hand;
-	 }
-	 a:link {
-		 color: #FFFFFF;
-	 }
-	 a:visited {
-		 color: #FFFFFF;
-	 }
-	 a:hover {
-		 color: #7F7F7F;
-	 }
-	 a:active {
-		 color: #7F7F7F;
-	 }
-	 #flashDiv {
-		 background-color: orange;
-	 }
-	 #navigation {
-		 font-size: 30px;
-		 width: 100%;
-		 height: 40px;
-		 margin: 0px;
-		 padding: 0px;
-	 }
-	 #sourceTable {
-		 width: 70%;
-		 border-radius: 3px 3px 3px 3px;
-		 -moz-border-radius: 3px 3px 3px 3px;
-		 -webkit-border-radius: 3px 3px 3px 3px;
-		 border: 1px solid #ffffff;
-		 height: 40px;
-		 padding-bottom: 5px;
-	 }
-	 #notFlash {
-		 width: 100%;
-	 }
-	 #exitFS {
-		 position: fixed;
-		 bottom: 0px;
-		 right: 0px;
-		 font-size: 20px;
-		 color: #000000;
-		 background: black;
-		 padding: 5px;
-		 display: none;
-		 background: black;
-		 background: rgba(255, 255, 255, .5);
-	 }
-	 #exitFS:hover {
-		 background: rgba(255, 255, 255, 1);
-	 }
-	 #links{
-		font-family: Verdana;
-		font-size: 12px;
-		position: absolute;
-		left: 0;
-		bottom: 0;
-		z-index: 1;
-		display: block;
-	}
-	#disqus_thread{
-		padding-top: 60px;
-		width: 80%;
-		margin: 0 auto;
-	}
-</style>
-<script type="text/javascript">
-	var flashID = <%= @flash.id %>;
-	var maxID = httpGet("api/max");
-	var fullscreenVar = false;
-	var swfheight = 0;
-	var swfwidth = 0
-	var swfSource = 'flash/' + flashID + '.swf'; 
-	var restHeight = 170;
-	
-	function randomID(){
-		return Math.floor((Math.random() * maxID));
-	}
+			background-color: #000000;
+			margin: 0px;
+			padding: 0px;
+			color: #FFFFFF;
+			height: 100%;
+			width: 100%;
+		}
+		table {
+			display:table;
+			margin-right:auto;
+			margin-left:auto;
+			width:100%;
+		}
+		td {
+			vertical-align: middle;
+			text-align: center;
+		}
+		th {
+			display: table-cell;
+			vertical-align: inherit;
+		}
+		a{
+			text-decoration: none;
+			cursor: pointer;
+			cursor: hand;
+		}
+		a:link {
+			color: #FFFFFF;
+		}
+		a:visited {
+			color: #FFFFFF;
+		}
+		a:hover {
+			color: #7F7F7F;
+		}
+		a:active {
+			color: #7F7F7F;
+		}
+		#flashDiv {
+			background-color: orange;
+		}
+		#navigation {
+			font-size: 30px;
+			width: 100%;
+			height: 40px;
+			margin: 0px;
+			padding: 0px;
+		}
+		#sourceTable {
+			width: 70%;
+			border-radius: 3px 3px 3px 3px;
+			-moz-border-radius: 3px 3px 3px 3px;
+			-webkit-border-radius: 3px 3px 3px 3px;
+			border: 1px solid #ffffff;
+			height: 40px;
+			padding-bottom: 5px;
+		}
+		#notFlash {
+			width: 100%;
+		}
+		#exitFS {
+			position: fixed;
+			bottom: 0px;
+			right: 0px;
+			font-size: 20px;
+			color: #000000;
+			background: black;
+			padding: 5px;
+			display: none;
+			background: black;
+			background: rgba(255, 255, 255, .5);
+		}
+		#exitFS:hover {
+			background: rgba(255, 255, 255, 1);
+		}
+		#links{
+			font-family: Verdana;
+			font-size: 12px;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			z-index: 1;
+			display: block;
+		}
+		#disqus_thread{
+			padding-top: 60px;
+			width: 80%;
+			margin: 0 auto;
+		}
+	</style>
+	<script type="text/javascript">
+		var flashID = <%= @flash.id %>;
+		var maxID = httpGet("api/max");
+		var fullscreenVar = false;
+		var swfheight = 0;
+		var swfwidth = 0
+		var swfSource = 'flash/' + flashID + '.swf'; 
+		var restHeight = 170;
+
+		function randomID(){
+			return Math.floor((Math.random() * maxID));
+		}
 
 		// When Site has been loaded
 		$(document).ready(function () {
-		 replaceElements(flashID);
-		 prepareComments();
-	 });
+			replaceElements(flashID);
+			prepareComments();
+		});
 
 		// @rob1nn: much compress, very wow
 		function replaceElements(id){
@@ -225,12 +225,12 @@
 		}
 
 		window.onresize = function (event) {
-		 if (!fullscreenVar){
-			document.getElementById('flashDiv').style.height = window.innerHeight - restHeight + 'px';
-		} else {
-			document.getElementById('flashDiv').style.height = window.innerHeight + 'px';
+			if (!fullscreenVar){
+				document.getElementById('flashDiv').style.height = window.innerHeight - restHeight + 'px';
+			} else {
+				document.getElementById('flashDiv').style.height = window.innerHeight + 'px';
+			}
 		}
-	}
 
 		// @rob1nn: Global disqus variables. Dont move into a function or it will break!
 		var disqus_shortname = 'fusroga';
@@ -296,80 +296,80 @@
 </head>
 <body>
 	<div id="all">
-	 <!-- Where the Flash will be displayed -->
-	 <div id="flashDiv">
+		<!-- Where the Flash will be displayed -->
+		<div id="flashDiv">
+			<center>
+				<div id="FlashPanel">
+					<!-- Flashplayer will be here -->
+					<div id="beispielsflash" style="height: 100px; width: 300px; background-color: pink;">
+					</div>
+				</div>
+			</center>
+		</div>
+	</div>
+
+	<!-- Where navigation, source table, links and comments will be displayed -->
+	<div id="notFlash">
 		<center>
-		 <div id="FlashPanel">
-			<!-- Flashplayer will be here -->
-			<div id="beispielsflash" style="height: 100px; width: 300px; background-color: pink;">
+			<!-- Navigation -->
+			<div id="navigation">
+				<a id="pre" onclick="goToAnotherFlash(-1, true)" >&#171; Previous</a> |
+				<a id="ran" onclick="goToAnotherFlash(0, true)" >Random</a> |
+				<a id="nex" onclick="goToAnotherFlash(1, true)" >Next &#187;</a>
 			</div>
+
+			<!-- Source Table -->
+			<div id="sourceTable">
+				<table>
+					<tr>
+						<td>Video</td>
+						<td>Audio</td>
+						<td>Filename</td>
+						<td>Uploader</td>
+						<td>Tags</td>
+					</tr>
+					<tr>
+						<td><div id="sourcevide"></div></td>
+						<td><div id="sourceaudi"></div></td>
+						<td><div id="sourcefnam"></div></td>
+						<td><div id="sourceuplo"></div></td>
+						<td><div id="sourcetags"></div></td>
+					</tr>
+				</table>
+
+			</div>
+		</center>
+
+		<!-- Links -->
+		<div id="links">
+			Follow r0z.biz on 
+			<a href="//twitter.com/fusroga">Twitter</a> |
+			<a href="//www.facebook.com/fusroga">Facebook</a> |
+			<a href="//plus.google.com/104078984544111325800/posts">Google+</a><br>
+			Quick Links:
+			<a href="info">Info</a> |
+			<a onclick="soon('tm')">Upload</a> |
+			<a onclick="soon('tm')">Source Index</a> |
+			<a href="skype:?chat&amp;blob=9WOGcGxyrhgC4uxUhVa9VNEifOA3M0lrZrL8gbHJptvlllaR9Zk7imrRMknUt39MKyoVFuynfAz3MunAx8N35XUmqa0xRZ4a6b6QaXuMqgIiwSz333fFbQmqQPPhAb27VokrBZD47gSsiL8iYl16TNbqwXArvLpIKvy3utRuSq9qPYhnNCf95oA5zHC6IpbwjMyK6l-ZAAn-ly2b0PAOpPTMQI36UBzImGo">Skype</a><br>
+			Functions: 
+			<a onclick="muteFlash()" id="muteFlash">Mute Flash</a> |
+			<a onclick="makeFullScreen()" id="makeFullScreen">Fullscreen</a> |
+			<a onclick="soon('tm')" id="profile">Profile</a>
 		</div>
-	</center>
-</div>
-</div>
 
-<!-- Where navigation, source table, links and comments will be displayed -->
-<div id="notFlash">
-	<center>
-		<!-- Navigation -->
-		<div id="navigation">
-			<a id="pre" onclick="goToAnotherFlash(-1, true)" >&#171; Previous</a> |
-			<a id="ran" onclick="goToAnotherFlash(0, true)" >Random</a> |
-			<a id="nex" onclick="goToAnotherFlash(1, true)" >Next &#187;</a>
-		</div>
-
-		<!-- Source Table -->
-		<div id="sourceTable">
-			<table>
-				<tr>
-					<td>Video</td>
-					<td>Audio</td>
-					<td>Filename</td>
-					<td>Uploader</td>
-					<td>Tags</td>
-				</tr>
-				<tr>
-					<td><div id="sourcevide"></div></td>
-					<td><div id="sourceaudi"></div></td>
-					<td><div id="sourcefnam"></div></td>
-					<td><div id="sourceuplo"></div></td>
-					<td><div id="sourcetags"></div></td>
-				</tr>
-			</table>
-
-		</div>
-	</center>
-
-	<!-- Links -->
-	<div id="links">
-		Follow r0z.biz on 
-		<a href="//twitter.com/fusroga">Twitter</a> |
-		<a href="//www.facebook.com/fusroga">Facebook</a> |
-		<a href="//plus.google.com/104078984544111325800/posts">Google+</a><br>
-		Quick Links:
-		<a href="info">Info</a> |
-		<a onclick="soon('tm')">Upload</a> |
-		<a onclick="soon('tm')">Source Index</a> |
-		<a href="skype:?chat&amp;blob=9WOGcGxyrhgC4uxUhVa9VNEifOA3M0lrZrL8gbHJptvlllaR9Zk7imrRMknUt39MKyoVFuynfAz3MunAx8N35XUmqa0xRZ4a6b6QaXuMqgIiwSz333fFbQmqQPPhAb27VokrBZD47gSsiL8iYl16TNbqwXArvLpIKvy3utRuSq9qPYhnNCf95oA5zHC6IpbwjMyK6l-ZAAn-ly2b0PAOpPTMQI36UBzImGo">Skype</a><br>
-		Functions: 
-		<a onclick="muteFlash()" id="muteFlash">Mute Flash</a> |
-		<a onclick="makeFullScreen()" id="makeFullScreen">Fullscreen</a> |
-		<a onclick="soon('tm')" id="profile">Profile</a>
+		<!-- Comments -->
+		<center>
+			<div id="comments">
+				<a onclick="showComments()" id="disqus_button">Show Comments</a>
+			</div>
+			<div id="disqus_thread"></div>
+		</center>
 	</div>
 
-	<!-- Comments -->
-	<center>
-		<div id="comments">
-			<a onclick="showComments()" id="disqus_button">Show Comments</a>
+	<a href='#' >
+		<div id="exitFS" onclick="closeFullscreen()" >
+			Exit Fullscreen
 		</div>
-		<div id="disqus_thread"></div>
-	</center>
-</div>
-
-<a href='#' >
-	<div id="exitFS" onclick="closeFullscreen()" >
-		Exit Fullscreen
-	</div>
-</a>
+	</a>
 </body>
 </html>
