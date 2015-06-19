@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>r0z.biz <%= @flash.id %></title>
+	<style type="text/css">
+		body {
+			background-color: #000000;
+			margin: 0px;
+			padding: 0px;
+			color: #FFFFFF;
+			height: 100%;
+			width: 100%;
+		}
+
+		table {
+			display:table;
+			margin-right:auto;
+			margin-left:auto;
+			width:100%;
+		}
+
+		tablecell {
+			display:table-cell;
+		}
+
+		td {
+			vertical-align: middle;
+			text-align: center;
+		}
+		th {
+			display: table-cell;
+			vertical-align: inherit;
+		}
+		a{
+			text-decoration:none;
+		}
+
+		a:link {
+			color: #FFFFFF;
+		}
+		a:visited {
+			color: #FFFFFF;
+		}
+		a:hover {
+			color: #7F7F7F;
+		}
+		a:active {
+			color: #7F7F7F;
+		}
+
+		#flashDiv {
+			background-color: orange;
+
+		}
+
+		#navigation {
+			font-size: 30px;
+			width: 100%;
+			height: 40px;
+			margin: 0px;
+			padding: 0px;
+		}
+
+		#sourceTable {
+			width: 70%;
+			border-radius: 3px 3px 3px 3px;
+			-moz-border-radius: 3px 3px 3px 3px;
+			-webkit-border-radius: 3px 3px 3px 3px;
+			border: 1px solid #ffffff;
+			height: 40px;
+			padding-bottom: 5px;
+
+		}
+
+		#notFlash {
+			width: 100%;
+		}
+
+		#exitFS {
+			position: fixed;
+			bottom: 0px;
+			right: 0px;
+			font-size: 20px;
+			color: #000000;
+			background: black;
+			padding: 5px;
+			display: none;
+			background: black;
+			background: rgba(255, 255, 255, .5);
+		}
+		#exitFS:hover {
+			background: rgba(255, 255, 255, 1);
+		}
+
+	</style>
+	<script type="text/javascript">
+
+		var flashID = <%= @flash.id %>;
+		var maxID = 100;
+		var fullscreenVar = false;
+		var swfheight = 0;
+		var swfwidth = 0
+		var swfSource = 'http://r0z.biz/includes/flash/' + flashID + '.swf';
+		var restHeight = 170;
+
+		// When Site has been loaded
+		window.onload = function () {
+
+			/*
+	    	// Check if ID is 0 or lower
+	    	if (flashID <= 0){
+	    		// Get Max ID
+	    		document.getElementById('pre').href = maxID;
+	    	} else {
+	    		document.getElementById('pre').href = flashID-1;
+	    	}
+
+	    	// Make random number from 0 to maxID
+	    	document.getElementById('ran').href = Math.floor((Math.random() * maxID));
+
+	    	// Check if ID is >= maxID
+	    	if (flashID >= maxID){
+	    		// Get Max ID
+	    		document.getElementById('nex').href = 0;
+	    	} else {
+	    		document.getElementById('nex').href = flashID+1;
+	    	}
+	    	*/
+
+	    	document.getElementById('flashDiv').style.height = window.innerHeight - restHeight + 'px';
+	    	document.getElementById('beispielsflash').innerHTML = 'FlashID is ' + swfSource;
+			document.getElementById('beispielsflash').innerHTML = 'FlashID is ' + swfSource;
+			document.getElementById('sourcevide').innerHTML = httpGet('http://fuuko.de:3000/api/source/video/' + flashID);
+			document.getElementById('sourceaudi').innerHTML = httpGet('http://fuuko.de:3000/api/source/audio/' + flashID);
+			document.getElementById('sourcefnam').innerHTML = httpGet('http://fuuko.de:3000/api/source/filename/' + flashID);
+			document.getElementById('sourceuplo').innerHTML = httpGet('http://fuuko.de:3000/api/source/uploader/' + flashID);
+			document.getElementById('sourcetags').innerHTML = httpGet('http://fuuko.de:3000/api/source/tags/' + flashID);
+
+	    }
+
+		// Change CSS File
+		function changeCSS(cssFile, cssLinkIndex) {
+			var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
+			var newlink = document.createElement("link");
+			newlink.setAttribute("rel", "stylesheet");
+			newlink.setAttribute("type", "text/css");
+			newlink.setAttribute("href", cssFile);
+			document.getElementsByTagName("head").item(0).replaceChild(newlink, oldlink);
+		}
+
+		// Make Fullscreen
+		function makeFullScreen(){
+
+			fullscreenVar = true;
+
+			document.getElementById('notFlash').style.display = "none";
+			var el = document.documentElement, 
+			rfs = el.requestFullScreen
+			|| el.webkitRequestFullScreen
+			|| el.mozRequestFullScreen
+			;
+			rfs.call(el);
+
+			document.getElementById('exitFS').style.display = "inline";
+			document.getElementById('flashDiv').style.height = "100%";
+		}
+
+		// Close Fullscreen
+		function closeFullscreen(){
+
+			fullscreenVar = false;
+
+			if(document.exitFullscreen) {
+				document.exitFullscreen();
+			} else if(document.mozCancelFullScreen) {
+				document.mozCancelFullScreen();
+			} else if(document.webkitExitFullscreen) {
+				document.webkitExitFullscreen();
+			}
+
+			document.getElementById('notFlash').style.display = "inline";
+			document.getElementById('exitFS').style.display = "none";
+			document.getElementById('flashDiv').style.height = window.innerHeight - restHeight + 'px';
+
+		}
+
+		// Resize Flash player and postition flash Player in the center
+		function resizeAndPositionFlashPlayer(){
+
+		}
+
+		function goToAnotherFlash(destination){
+			if (destination == -1){
+				if (flashID <= 0){
+					window.history.pushState('page', 'flash', '/'+ maxID);
+					flashID = maxID
+				} else {
+					flashID = flashID - 1;
+					window.history.pushState('page', 'flash', '/'+ flashID);
+				}
+			}
+			if (destination == 0){
+				flashID = Math.floor((Math.random() * maxID));
+				window.history.pushState('page', 'flash', '/'+ flashID);
+			}
+			if (destination == 1){
+				if (flashID >= maxID){
+					window.history.pushState('page', 'flash', '/'+ 0);
+					flashID = 0
+				} else {
+					flashID = flashID + 1;
+					window.history.pushState('page', 'flash', '/'+ flashID);
+				}
+			}
+			swfSource = 'http://r0z.biz/includes/flash/' + flashID + '.swf';
+			document.getElementById('beispielsflash').innerHTML = 'FlashID is ' + swfSource;
+			document.getElementById('sourcevide').innerHTML = httpGet('http://fuuko.de:3000/api/source/video/' + flashID);
+			document.getElementById('sourceaudi').innerHTML = httpGet('http://fuuko.de:3000/api/source/audio/' + flashID);
+			document.getElementById('sourcefnam').innerHTML = httpGet('http://fuuko.de:3000/api/source/filename/' + flashID);
+			document.getElementById('sourceuplo').innerHTML = httpGet('http://fuuko.de:3000/api/source/uploader/' + flashID);
+			document.getElementById('sourcetags').innerHTML = httpGet('http://fuuko.de:3000/api/source/tags/' + flashID);
+
+		}
+
+		function httpGet(theUrl){
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false );
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+		}
+
+		window.onresize = function (event) {
+			if (!fullscreenVar){
+				document.getElementById('flashDiv').style.height = window.innerHeight - restHeight + 'px';
+			} else {
+				document.getElementById('flashDiv').style.height = window.innerHeight + 'px';
+			}
+		}
+
+	</script>
+</head>
+<body>
+
+	<div id="all">
+		<!-- Where the Flash will be displayed -->
+		<div id="flashDiv">
+			<center>
+				<div id="FlashPanel">
+					<!-- Flashplayer will be here -->
+					<div id="beispielsflash" style="height: 100px; width: 300px; background-color: pink;">
+					</div>
+
+				</embed>
+			</object>
+		</div>
+	</center>
+</div>
+
+<!-- Where navigation, source table, links and comments will be displayed -->
+<div id="notFlash">
+	<center>
+		<!-- Navigation -->
+		<div id="navigation">
+			<a id="pre" href="javascript:void(0)" onclick="goToAnotherFlash(-1)" >&#171; Previous</a> |
+			<a id="ran" href="javascript:void(0)" onclick="goToAnotherFlash(0)" >Random</a> |
+			<a id="nex" href="javascript:void(0)" onclick="goToAnotherFlash(1)" >Next &#187;</a>
+		</div>
+
+		<!-- Source Table -->
+		<div id="sourceTable">
+
+			<table>
+				<tr>
+					<td>Video</td>
+					<td>Audio</td>
+					<td>Filename</td>
+					<td>Uploader</td>
+					<td>Tags</td>
+				</tr>
+				<tr>
+					<td><div id="sourcevide"></div></td>
+					<td><div id="sourceaudi"></div></td>
+					<td><div id="sourcefnam"></div></td>
+					<td><div id="sourceuplo"></div></td>
+					<td><div id="sourcetags"></div></td>
+				</tr>
+			</table>
+
+		</div>
+	</center>
+
+	<!-- Links -->
+	<div id="links">
+		Follow r0z.biz on 
+		<a href="//twitter.com/fusroga">Twitter</a> |
+		<a href="//www.facebook.com/fusroga">Facebook</a> |
+		<a href="//plus.google.com/104078984544111325800/posts">Google+</a><br>
+		Quick Links:
+		<a href="info">Info</a> |
+		<a onclick="soon('tm')">Upload</a> |
+		<a onclick="soon('tm')">Source Index</a> |
+		<a href="skype:?chat&amp;blob=9WOGcGxyrhgC4uxUhVa9VNEifOA3M0lrZrL8gbHJptvlllaR9Zk7imrRMknUt39MKyoVFuynfAz3MunAx8N35XUmqa0xRZ4a6b6QaXuMqgIiwSz333fFbQmqQPPhAb27VokrBZD47gSsiL8iYl16TNbqwXArvLpIKvy3utRuSq9qPYhnNCf95oA5zHC6IpbwjMyK6l-ZAAn-ly2b0PAOpPTMQI36UBzImGo">Skype</a><br>
+		Functions: 
+		<a onclick="muteFlash()" href="#" id="muteFlash">Mute Flash</a> |
+		<a onclick="makeFullScreen()" href="#" id="makeFullScreen">Fullscreen</a> |
+		<a onclick="profile()" href="#" id="profile">Profile</a>
+	</div>
+
+	<!-- Comments -->
+	<center>
+		<div id="comments">
+			<a onclick="showComments()" href="#" id="showComments">Show Comments</a>
+		</div>
+	</center>
+</div>
+</div>
+
+<a href='#' >
+	<div id="exitFS" onclick="closeFullscreen()" href="#" >
+		Exit Fullscreen
+	</div>
+</a>
+
+</body>
+</html>
