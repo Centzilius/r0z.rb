@@ -103,7 +103,10 @@
 		var swfwidth = 0
 		var swfSource = 'flash/' + flashID + '.swf'; 
 		var restHeight = 170;
-    var randomID = Math.floor((Math.random() * maxID));
+    
+    function randomID(){
+      return Math.floor((Math.random() * maxID));
+    }
 
 		// When Site has been loaded
 		$(document).ready(function () {
@@ -184,7 +187,7 @@
             window.history.pushState('page', 'flash', '/'+ flashID);
           }
         } else if (destination == 0){
-          flashID = randomID;
+          flashID = randomID();
           window.history.pushState('page', 'flash', '/'+ flashID);
         } else if (destination == 1){
           if (flashID >= maxID){
@@ -198,9 +201,9 @@
       } else {
         flashID = destination;
         if(isNaN(flashID))
-          flashID = randomID;
+          flashID = randomID();
         else if(flashID < 0)
-          flashID = randomID;
+          flashID = randomID();
         flashID = parseInt(flashID, 10);
         window.history.pushState("page", "flash", "/"+flashID)
       }
@@ -261,13 +264,6 @@
     function p(){
       goToAnotherFlash(-1, true);
     }
-    function o(){
-      var idBox = prompt("Enter ID:");
-      goToAnotherFlash(idBox, false);
-    }
-    function r(){
-      goToAnotherFlash(0, true);
-    }
     function n(){
       goToAnotherFlash(1, true);
     }
@@ -285,12 +281,6 @@
         }
         if (map[37]) {
           p();
-        }
-        if (map[38]) {
-          o();
-        }
-        if (map[40]) {
-          r();
         }
         if (map[39]) {
           n();
