@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+
+<!-- Es duenkelt mir, als waere Robin Ein Fgt. Kann das denn sein? :3 -->
+
 <html>
 <head>
 	<title><%= R0z.config.title %></title>
@@ -45,6 +48,9 @@
 		}
 		#flashDiv {
 			background-color: orange;
+		}
+
+		#flashPanel {
 		}
 		#navigation {
 			font-size: 30px;
@@ -99,8 +105,8 @@
 		var flashID = <%= @flash.id %>;
 		var maxID = httpGet("api/max");
 		var fullscreenVar = false;
-		var swfheight = 0;
-		var swfwidth = 0
+		var swfwidth = 600; 	// Flash dimensions muss man noch abfangen koennen
+		var swfheight = 200;		// Also kuemmer dich darum ._.
 		var swfSource = 'flash/' + flashID + '.swf'; 
 		var restHeight = 170;
 
@@ -112,6 +118,7 @@
 		$(document).ready(function () {
 			replaceElements(flashID);
 			prepareComments();
+			resizeAndPositionFlashPlayer();
 		});
 
 		// @rob1nn: much compress, very wow
@@ -174,6 +181,24 @@
 		// Resize Flash player and postition flash Player in the center
 		function resizeAndPositionFlashPlayer(){
 			// @rob1nn: ??
+
+			flashbuehne = document.getElementById('flashDiv');
+			platzY = flashbuehne.offsetHeight;
+			platzX = flashbuehne.offsetWidth;
+			flashDivVar = document.getElementById('FlashPanel');
+			if ( (platzX / swfwidth) * swfheight <= platzY){
+				// Nimmt jetzt volle Fensterbreite ein
+				flashDivVar.style.width = platzX + "px";
+				flashDivVar.style.height = ((platzX / swfwidth) * swfheight) + "px";
+
+				document.getElementById('expander').style.height = Math.floor((platzY - ((platzX / swfwidth) * swfheight)) / 2 ) + "px";
+			} else {
+				// Nimmt jetzt volle Fensterhoehe ein
+				flashDivVar.style.height = platzY + "px";
+				flashDivVar.style.width = ((platzY / swfheight) * swfwidth) + "px";
+				document.getElementById('expander').style.height = "0px";
+			}
+
 		}
 
 		function goToAnotherFlash(destination, pre){
@@ -215,6 +240,12 @@
 					this.page.url = "/"+flashID
 				}
 			});
+
+			// Todo: Flash im plazer anpassen und neue groeße bekommen
+			swfwidth = 400;
+			swfheight = 300;
+			resizeAndPositionFlashPlayer()
+
 		}
 
 		function httpGet(theUrl){
@@ -230,6 +261,7 @@
 			} else {
 				document.getElementById('flashDiv').style.height = window.innerHeight + 'px';
 			}
+			resizeAndPositionFlashPlayer()
 		}
 
 		// @rob1nn: Global disqus variables. Dont move into a function or it will break!
@@ -251,6 +283,7 @@
 			$('#disqus_button').on('click', function() {
 			});
 		}
+		
 		// Display placeholder with a slide effect + change text of span 'disqus_button'
 		function showComments() {
 			if($('#disqus_button').text() == 'Show Comments')
@@ -260,15 +293,19 @@
 			$('#disqus_thread').slideToggle(2000, function() {/*callback of slider*/});
 			return false;
 		}
+		
 		function p(){
 			goToAnotherFlash(-1, true);
 		}
+		
 		function n(){
 			goToAnotherFlash(1, true);
 		}
+
 		function Mute(){
 			// @rob1nn: todo!!!
 		}
+
 		var map = {77: false, 40: false, 37: false, 38: false, 39: false};
 		$(document).keydown(function(e) {
 			if (e.keyCode in map) {
@@ -287,6 +324,7 @@
 			if (e.keyCode in map)
 				map[e.keyCode] = false;
 		});
+
 	</script>
 </head>
 <body>
@@ -294,10 +332,13 @@
 		<!-- Where the Flash will be displayed -->
 		<div id="flashDiv">
 			<center>
+				<div id="expander" style="background-color: green; height: 0px; width: 100%;">
+				</div>
 				<div id="FlashPanel">
 					<!-- Flashplayer will be here -->
-					<div id="beispielsflash" style="height: 100px; width: 300px; background-color: pink;">
+					<div id="beispielsflash" style="height: 100%; width: 100%; background-color: pink;">
 					</div>
+
 				</div>
 			</center>
 		</div>
