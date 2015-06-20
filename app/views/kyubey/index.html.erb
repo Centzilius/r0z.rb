@@ -325,26 +325,26 @@
 
 	function Mute(){
 			// @rob1nn: todo!!!
-		}
+	}
 
-		var map = {77: false, 40: false, 37: false, 38: false, 39: false};
-		$(document).keydown(function(e) {
-			if (e.keyCode in map) {
-				map[e.keyCode] = true;
-				if (map[77]) {
-					Mute();
-				}
-				if (map[37]) {
-					p();
-				}
-				if (map[39]) {
-					n();
-				}
+	var map = {77: false, 40: false, 37: false, 38: false, 39: false};
+	$(document).keydown(function(e) {
+		if (e.keyCode in map) {
+			map[e.keyCode] = true;
+			if (map[77]) {
+				Mute();
 			}
-		}).keyup(function(e) {
-			if (e.keyCode in map)
-				map[e.keyCode] = false;
-		});
+			if (map[37]) {
+				p();
+			}
+			if (map[39]) {
+				n();
+			}
+		}
+	}).keyup(function(e) {
+		if (e.keyCode in map)
+			map[e.keyCode] = false;
+	});
 
 	</script>
 </head>
@@ -423,7 +423,7 @@
 		</center>
 	</div>
 
-	<a href='#' >
+	<a onclick="return false;">
 		<div id="exitFS" onclick="closeFullscreen()" >
 			Exit Fullscreen
 		</div>
