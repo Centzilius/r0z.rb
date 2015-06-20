@@ -105,7 +105,7 @@
 		var flashID = <%= @flash.id %>;
 		var maxID = httpGet("api/max");
 		var fullscreenVar = false;
-		var swfwidth = 600; 	// Flash dimensions muss man noch abfangen koennen
+		var swfwidth = 600; 		// Flash dimensions muss man noch abfangen koennen
 		var swfheight = 200;		// Also kuemmer dich darum ._.
 		var swfSource = 'flash/' + flashID + '.swf'; 
 		var restHeight = 170;
@@ -123,8 +123,11 @@
 
 		// @rob1nn: much compress, very wow
 		function replaceElements(id){
+
 			var swfSource = "flash/"+id+".swf";
-			$("#flashDiv").css("height", window.innerHeight - restHeight + "px");
+			if (!fullscreenVar){
+				$("#flashDiv").css("height", window.innerHeight - restHeight + "px");
+			}
 			$("#beispielsflash").html("FlashID is "+swfSource);
 			$("#sourcevide").html(httpGet("api/source/video/"+id));
 			$("#sourceaudi").html(httpGet("api/source/audio/"+id));
@@ -132,9 +135,10 @@
 			$("#sourceuplo").html(httpGet("api/source/uploader/"+id));
 			$("#sourcetags").html(httpGet("api/source/tags/"+id));
 			document.title = "<%= R0z.config.title %> #"+id;
+			resizeAndPositionFlashPlayer();
 		}
 
-		// Change CSS File @rob1nn: wtf?
+		// Change CSS File @rob1nn: wtf? @Kyubey kommt noch mit der Zeit. Brauchen wir sobald es Profile gibt
 		function changeCSS(cssFile, cssLinkIndex) {
 			var oldlink = document.getElementsByTagName("link").item(cssLinkIndex);
 			var newlink = document.createElement("link");
@@ -202,6 +206,7 @@
 		}
 
 		function goToAnotherFlash(destination, pre){
+			// @Kyubey Fuer was das 'pre'?
 			if (pre == true){
 				if (destination == -1){
 					if (flashID <= 0){
@@ -232,6 +237,9 @@
 				flashID = parseInt(flashID, 10);
 				window.history.pushState("page", "flash", "/"+flashID)
 			}
+			/* Todo: Flash im plazer anpassen und neue groeße bekommen
+			swfwidth = GetSwfWidth(); ... oder sowas halt ._.
+			swfheight = " */
 			replaceElements(flashID);
 			DISQUS.reset({
 				reload: true,
@@ -240,10 +248,6 @@
 					this.page.url = "/"+flashID
 				}
 			});
-
-			// Todo: Flash im plazer anpassen und neue groeße bekommen
-			swfwidth = 400;
-			swfheight = 300;
 			resizeAndPositionFlashPlayer()
 
 		}
@@ -290,19 +294,19 @@
 				$('#disqus_button').text('Hide Comments');
 			else
 				$('#disqus_button').text('Show Comments');
-			$('#disqus_thread').slideToggle(2000, function() {/*callback of slider*/});
-			return false;
-		}
-		
-		function p(){
-			goToAnotherFlash(-1, true);
-		}
-		
-		function n(){
-			goToAnotherFlash(1, true);
-		}
+		$('#disqus_thread').slideToggle(2000, function() {/*callback of slider*/});
+		return false;
+	}
+	
+	function p(){
+		goToAnotherFlash(-1, true);
+	}
+	
+	function n(){
+		goToAnotherFlash(1, true);
+	}
 
-		function Mute(){
+	function Mute(){
 			// @rob1nn: todo!!!
 		}
 
