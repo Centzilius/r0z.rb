@@ -313,39 +313,37 @@
 				$('#disqus_button').text('Show Comments');
 		$('#disqus_thread').slideToggle(2000, function() {/*callback of slider*/});
 		return false;
-	}
-	
-	function p(){
-		goToAnotherFlash(-1, true);
-	}
-	
-	function n(){
-		goToAnotherFlash(1, true);
-	}
-
-	function Mute(){
-			// @rob1nn: todo!!!
-	}
-
-	var map = {77: false, 40: false, 37: false, 38: false, 39: false};
-	$(document).keydown(function(e) {
-		if (e.keyCode in map) {
-			map[e.keyCode] = true;
-			if (map[77]) {
-				Mute();
-			}
-			if (map[37]) {
-				p();
-			}
-			if (map[39]) {
-				n();
-			}
 		}
-	}).keyup(function(e) {
-		if (e.keyCode in map)
-			map[e.keyCode] = false;
-	});
-
+	
+		function p(){
+			goToAnotherFlash(-1, true);
+		}
+		
+		function n(){
+			goToAnotherFlash(1, true);
+		}
+	
+		function Mute(){
+			// @rob1nn: todo!!!
+		}
+		var map = {77: false, 40: false, 37: false, 38: false, 39: false};
+		$(document).keydown(function(e) {
+			if (e.keyCode in map) {
+				map[e.keyCode] = true;
+				if (map[77]) {
+					Mute();
+				}
+				if (map[37]) {
+					p();
+				}
+				if (map[39]) {
+					n();
+				}
+			}
+		}).keyup(function(e) {
+			if (e.keyCode in map)
+				map[e.keyCode] = false;
+		});
 	</script>
 </head>
 <body>
