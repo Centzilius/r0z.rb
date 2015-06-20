@@ -119,6 +119,7 @@
 			replaceElements(flashID);
 			prepareComments();
 			resizeAndPositionFlashPlayer();
+			setLinks();
 		});
 
 		// @rob1nn: much compress, very wow
@@ -241,6 +242,7 @@
 			swfwidth = GetSwfWidth(); ... oder sowas halt ._.
 			swfheight = " */
 			replaceElements(flashID);
+			setLinks();
 			DISQUS.reset({
 				reload: true,
 				config: function(){
@@ -250,6 +252,21 @@
 			});
 			resizeAndPositionFlashPlayer()
 
+		}
+
+		function setLinks(){
+			// Check if ID is 0 or lower
+			if (flashID <= 0){
+				document.getElementById('pre').href = maxID;
+			} else {
+				document.getElementById('pre').href = flashID - 1;
+			}
+			document.getElementById('ran').href = Math.floor((Math.random() * maxID));
+			if (flashID >= maxID){
+				document.getElementById('nex').href = 0;
+			} else {
+				document.getElementById('nex').href = flashID + 1;
+			}
 		}
 
 		function httpGet(theUrl){
@@ -353,9 +370,9 @@
 		<center>
 			<!-- Navigation -->
 			<div id="navigation">
-				<a id="pre" onclick="goToAnotherFlash(-1, true)" >&#171; Previous</a> |
-				<a id="ran" onclick="goToAnotherFlash(0, true)" >Random</a> |
-				<a id="nex" onclick="goToAnotherFlash(1, true)" >Next &#187;</a>
+				<a id="pre" onclick="goToAnotherFlash(-1, true); return false;" >&#171; Previous</a> |
+				<a id="ran" onclick="goToAnotherFlash(0, true); return false;" >Random</a> |
+				<a id="nex" onclick="goToAnotherFlash(1, true); return false;" >Next &#187;</a>
 			</div>
 
 			<!-- Source Table -->
