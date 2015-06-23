@@ -1,0 +1,8 @@
+<% fid = params[:id] %>
+{
+	"audio": "<% concat Flash.find(fid).audiosrc %>",
+	"video": "<% concat Flash.find(fid).imagesrc %>",
+	"filename": "<% concat Flash.find(fid).original_name %>",
+	"uploader": "<% concat Flash.find(fid).uploader %>",
+	"tags": "<% concat Flash.find(fid).tags  %>"
+}
