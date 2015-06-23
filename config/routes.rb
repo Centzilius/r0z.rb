@@ -3,10 +3,7 @@ Rails.application.routes.draw do
 
   root 'kyubey#index'
 
-  get 'api' => 'api#info'
-  get 'api/:code' => 'api#index'
-  get 'api/:code/:arg1' => 'api#index'
-  get 'api/:code/:arg1/:arg2' => 'api#index'
+  get 'api/flash/info/:id' => 'api#flashinfo'
 
   get 'info' => 'info#index'
   get 'source' => 'source#index'
