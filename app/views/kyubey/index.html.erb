@@ -103,7 +103,7 @@
 	</style>
 	<script type="text/javascript">
 		var flashID = <%= @flash.id %>;
-		var maxID = httpGet("api/max");
+		var maxID = <%= Flash.count-1 %>;
 		var fullscreenVar = false;
 		var swfwidth = 600; 		// Flash dimensions muss man noch abfangen koennen
 		var swfheight = 200;		// Also kuemmer dich darum ._.
@@ -126,17 +126,38 @@
 		function replaceElements(id){
 
 			var swfSource = "flash/"+id+".swf";
+
 			if (!fullscreenVar){
 				$("#flashDiv").css("height", window.innerHeight - restHeight + "px");
 			}
 			$("#beispielsflash").html("FlashID is "+swfSource);
-			$("#sourcevide").html(httpGet("api/source/video/"+id));
-			$("#sourceaudi").html(httpGet("api/source/audio/"+id));
-			$("#sourcefnam").html(httpGet("api/source/filename/"+id));
-			$("#sourceuplo").html(httpGet("api/source/uploader/"+id));
-			$("#sourcetags").html(httpGet("api/source/tags/"+id));
+
+			$.ajax({
+				url: "api/flash/info/"+id,
+				type: "GET",
+				dataType: "json",
+				success: function(res){
+					$("#sourcevide").html(res.video);
+					$("#sourceaudi").html(res.audio);
+					$("#sourcefnam").html(res.filename);
+					$("#sourceuplo").html(res.uploader);
+					$("#sourcetags").html(res.tags);
+				}
+			});
+
 			document.title = "<%= R0z.config.title %> #"+id;
-			resizeAndPositionFlashPlayer();
+
+			$.ajax({
+				url: "http://fuuko.de/openga/api.php?id="+id, // we need to create our own api
+				type: "GET",
+				dataType: "json",
+				success: function(res){
+					swfwidth = res.width;
+					swfheight = res.height;
+					resizeAndPositionFlashPlayer();
+				}
+			});
+
 		}
 
 		// Change CSS File @rob1nn: wtf? @Kyubey kommt noch mit der Zeit. Brauchen wir sobald es Profile gibt
@@ -267,13 +288,6 @@
 			} else {
 				document.getElementById('nex').href = flashID + 1;
 			}
-		}
-
-		function httpGet(theUrl){
-			var xmlHttp = new XMLHttpRequest();
-			xmlHttp.open( "GET", theUrl, false );
-			xmlHttp.send( null );
-			return xmlHttp.responseText;
 		}
 
 		window.onresize = function (event) {
